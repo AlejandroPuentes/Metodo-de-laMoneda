@@ -41,11 +41,11 @@ public class CambioMoneda {
             
         }
         for (int i = 0; i <=moneda; i++){
-            subindix[i][0]="∞";
+            subindix[i][0]="0";
         }
         
         for (int j = 1; j <=cantidad; j++){
-            matrizCambio[0][j] = 9;
+            matrizCambio[0][j] = 99;
             
         }
         for (int j = 0; j <=cantidad; j++){
@@ -56,21 +56,22 @@ public class CambioMoneda {
             for (int j = 1; j <=cantidad; j++) {
                 if (i==1 && (j)<monedas[i]){
                     matrizCambio[i][j]=infinito;
+                    subindix[i][j]="∞";
                 }else{
                     if (i==1){
-                        subindix[i][j]=("["+1+matrizCambio[1][j-monedas[i]]+" ]"+"1:"+(monedas[i])+"");
+                        subindix[i][j]=("["+(1+matrizCambio[1][j-monedas[i]])+" ]"+" "+(monedas[i])+"");
                         matrizCambio[i][j]= 1+matrizCambio[1][j-monedas[i]];
                     }
                 }                
                 if(j<monedas[i]){
-                    subindix[i][j]=("["+matrizCambio [i-1][j]+"]"+"1:"+(monedas[i-1])+"");
+                    subindix[i][j]=("["+(matrizCambio [i-1][j])+"]"+" "+(monedas[i-1])+"");
                     matrizCambio[i][j]= matrizCambio [i-1][j];
                 }else{
                     matrizCambio[i][j]=min(matrizCambio[i-1][j],1+matrizCambio[i][j-monedas[i]]);   
                     if (matrizCambio[i-1][j]>1+matrizCambio[i][j-monedas[i]]){
-                       subindix[i][j]=("["+matrizCambio[i-1][j]+"]"+"1:"+((monedas[i-1]))+""); 
+                       subindix[i][j]=("["+(matrizCambio[i-1][j])+"]"+" "+((monedas[i-1]))+" "); 
                     }else{
-                        subindix[i][j]=("["+1+matrizCambio[i][j-monedas[i]]+"]"+"1:"+((monedas[i])));
+                        subindix[i][j]=("["+(1+matrizCambio[i][j-monedas[i]])+"]"+" "+((monedas[i])));
                     }
                 }  
             }
