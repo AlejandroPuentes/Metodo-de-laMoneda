@@ -22,6 +22,7 @@ public class CambioMoneda {
     private int[] vectorMonedas;
     private int cantidad;
     private int[] vectorSeleccion;
+    private String[][] subindix; 
 
    
 
@@ -32,13 +33,24 @@ public class CambioMoneda {
           int monedas[]=ContaBur(moned);
         
         matrizCambio=new int [moneda+1][cantidad+1];
+        subindix =  new String [moneda+1][cantidad+1];
         
 
-        for (int i = 0; i <=moneda; i++)
+        for (int i = 0; i <=moneda; i++){
             matrizCambio[i][0] = 0;
+            
+        }
+        for (int i = 0; i <=moneda; i++){
+            subindix[i][0]="∞";
+        }
         
-        for (int j = 1; j <=cantidad; j++)
+        for (int j = 1; j <=cantidad; j++){
             matrizCambio[0][j] = 9;
+            
+        }
+        for (int j = 0; j <=cantidad; j++){
+            subindix[0][j]="∞";
+        }
         
         for (int i = 1; i <=moneda; i++){
             for (int j = 1; j <=cantidad; j++) {
@@ -46,14 +58,20 @@ public class CambioMoneda {
                     matrizCambio[i][j]=infinito;
                 }else{
                     if (i==1){
+                        subindix[i][j]=("["+1+matrizCambio[1][j-monedas[i]]+" ]"+"1:"+(monedas[i])+"");
                         matrizCambio[i][j]= 1+matrizCambio[1][j-monedas[i]];
                     }
-                }
-                
+                }                
                 if(j<monedas[i]){
+                    subindix[i][j]=("["+matrizCambio [i-1][j]+"]"+"1:"+(monedas[i-1])+"");
                     matrizCambio[i][j]= matrizCambio [i-1][j];
                 }else{
-                    matrizCambio[i][j]=min(matrizCambio[i-1][j],1+matrizCambio[i][j-monedas[i]]);                                                      
+                    matrizCambio[i][j]=min(matrizCambio[i-1][j],1+matrizCambio[i][j-monedas[i]]);   
+                    if (matrizCambio[i-1][j]>1+matrizCambio[i][j-monedas[i]]){
+                       subindix[i][j]=("["+matrizCambio[i-1][j]+"]"+"1:"+((monedas[i-1]))+""); 
+                    }else{
+                        subindix[i][j]=("["+1+matrizCambio[i][j-monedas[i]]+"]"+"1:"+((monedas[i])));
+                    }
                 }  
             }
         }
@@ -88,7 +106,9 @@ public class CambioMoneda {
         }         
         return a;
     }
-   
+   public String[][] sub(){
+       return subindix;
+   }
     
 }
 

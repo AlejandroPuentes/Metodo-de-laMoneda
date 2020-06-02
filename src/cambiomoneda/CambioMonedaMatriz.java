@@ -181,8 +181,9 @@ public class CambioMonedaMatriz extends javax.swing.JFrame {
         } 
         CambioMoneda cm = new CambioMoneda();
         int seleccion[][]= cm.calcularMonedas(m, n,Vmoneda);
-        
-        this.MostrarMatriz(seleccion, n, m);
+         String sub [][] =cm.sub();
+        //this.MostrarMatriz(seleccion, n, m);
+        this.MostrarMtriz(sub, n, m);
     }//GEN-LAST:event_CambioMonedaActionPerformed
 
     private void btnRegistraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraActionPerformed
@@ -245,7 +246,18 @@ public class CambioMonedaMatriz extends javax.swing.JFrame {
     }
     
     
-    
+     public void MostrarMtriz(String matriz[][], int n,int m){
+       
+       DefaultTableModel model = (DefaultTableModel) JacambioMo.getModel(); 
+       model.setRowCount(n+1);
+       model.setColumnCount(m+1);
+        for (int i = 0; i <=n; i++) {
+            for (int j = 0; j <= m; j++) {
+                JacambioMo.setValueAt(matriz[i][j],i, j);
+            }
+        }
+        
+    }
     
     public void MostrarMatriz(int  matriz[][], int n,int m){
        
